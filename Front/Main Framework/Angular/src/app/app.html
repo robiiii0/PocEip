@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="subContainer">
+  <h1>Task List Angular</h1>
+  <ul>
+    <li *ngFor="let task of tasks">
+      <span [style.text-decoration]="task.done ? 'line-through' : 'none'">
+        {{ task.title }}
+      </span>
+      <button (click)="toggleDone(task)">
+        {{ task.done ? 'Undo' : 'Done' }}
+      </button>
+    </li>
+  </ul>
+  <p>Tâches terminées : {{ doneCount }}</p>
+</div>
+</div>
