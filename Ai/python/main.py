@@ -12,7 +12,7 @@ print("--- 1. Préparation des données ---")
 try:
     data = pd.read_csv('data.csv')
 except FileNotFoundError:
-    print("ERREUR : Fichier 'data.csv' non trouvé. Renommez votre CSV ou modifiez le script.")
+    print("ERREUR : Fichier 'data.csv' non trouvé. Renommez votre CSV.")
     exit()
 
 X = data[['nouvelle_neige_cm', 'temperature', 'vent_kmh']]
