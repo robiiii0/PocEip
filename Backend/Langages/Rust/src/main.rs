@@ -27,7 +27,7 @@ fn main() {
 
         // Définir l'adresse et le port sur lesquels le serveur écoutera
         let addr = SocketAddr::from(([127, 0, 0, 1], 3000));
-        println!("Le serveur écoute sur http://{}", addr);
+        println!("Le serveur Axum écoute sur http://{}", addr);
 
         // Lancer le serveur
         let listener = tokio::net::TcpListener::bind(addr).await.unwrap();
@@ -38,6 +38,7 @@ fn main() {
 // Handler pour la route racine "/"
 async fn root_handler() -> Json<serde_json::Value> {
     // serde_json::json! est une macro pratique pour créer des objets JSON.
+    println!("root_handler called");
     Json(serde_json::json!({ "message": "Bonjour, bienvenue sur le serveur Axum !" }))
 }
 
@@ -54,6 +55,7 @@ async fn items_handler(
     Path(item_id): Path<u32>, // Extrait `item_id` du chemin, Axum le parse en u32
     Query(params): Query<HashMap<String, String>>, // Extrait tous les params de requête
 ) -> Json<ItemResponse> {
+    println!("items_handler called with item_id: {}", item_id);
     // On cherche un paramètre 'q' dans la requête
     let q = params.get("q").cloned();
 
@@ -78,6 +80,7 @@ struct User {
 async fn users_handler(
     Query(pagination): Query<Pagination>
 ) -> Json<Vec<User>> {
+    println!("users_handler called");
     let fake_users_db = vec![
         User { user_name: "Alice".to_string() },
         User { user_name: "Bob".to_string() },

@@ -19,6 +19,7 @@ async fn get_item(
     path: web::Path<u32>,
     query: web::Query<ItemInfo>,
 ) -> Result<impl Responder> {
+    println!("get_item called");
     let item_id = path.into_inner();
     let q_param = query.into_inner().q;
 
@@ -43,6 +44,7 @@ struct User {
 
 #[get("/utilisateurs")]
 async fn get_users(query: web::Query<Pagination>) -> Result<impl Responder> {
+    println!("get_users called");
     let pagination = query.into_inner();
     let skip = pagination.skip.unwrap_or(0);
     let limit = pagination.limit.unwrap_or(10);
@@ -61,7 +63,7 @@ async fn get_users(query: web::Query<Pagination>) -> Result<impl Responder> {
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     let server_address = "127.0.0.1:8080";
-    println!("Le serveur écoute sur http://{}", server_address);
+    println!("Le serveur Actix-web écoute sur http://{}", server_address);
 
     HttpServer::new(|| {
         App::new()
